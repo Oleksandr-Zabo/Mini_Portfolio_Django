@@ -64,7 +64,7 @@ mini_portfolio/
    ```bash
    python telegram_bot/bot.py
    ```
-4. Users connect via the `/start` command in @mini_portfolio_django_bot.
+4. Users connect via the `/start` command in your bot.
 
 ## Author
 Oleksandr Zabolotnyi
