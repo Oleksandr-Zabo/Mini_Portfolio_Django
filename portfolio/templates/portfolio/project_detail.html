@@ -1,0 +1,26 @@
+﻿{% extends "portfolio/main.html" %}
+{% block title %}{{ project.title }}{% endblock %}
+{% block content %}
+<div class="card-det shadow-sm">
+    {% if project.image %}
+        <img src="{{ project.image.url }}" class="project-detail-img" alt="{{ project.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h3>{{ project.title }}</h3>
+        {% if project.description_html %}
+    <div class="project-description">
+        {{ project.description_html|safe }}
+    </div>
+{% else %}
+    <p><em>Опис відсутній</em></p>
+{% endif %}
+        <p><strong>Автор:</strong> {{ project.author.username }}</p>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            {% if project.link %}
+                <a href="{{ project.link }}" target="_blank" class="btn btn-primary">Переглянути сайт</a>
+            {% endif %}
+            <a href="{% url 'delete_request' project.id %}" class="btn btn-danger">Запросити видалення</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
