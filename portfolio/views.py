@@ -13,6 +13,7 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import UserProfile
+from .signals import project_viewed
 
 
 '''Домашня сторінка'''
@@ -96,6 +97,9 @@ def project_detail(request, pk):
         )
     else:
         project.description_html = None
+
+    # Send signal that project was viewed
+    project_viewed.send(sender=Project, project=project, viewer=request.user if request.user.is_authenticated else None)
 
     return render(request, "portfolio/project_detail.html", {"project": project})
 

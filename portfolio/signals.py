@@ -1,7 +1,11 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.dispatch import Signal
 from .models import Project, DeleteRequest
 from telegram_bot.bot import bot
+
+# Custom signal for project view
+project_viewed = Signal()
 
 @receiver(post_save, sender=Project)
 def project_created_signal(sender, instance, created, **kwargs):
@@ -39,3 +43,21 @@ def delete_request_signal(sender, instance, created, **kwargs):
 Використайте /requests щоб переглянути всі запити.
                 """
                 bot.send_message(admin.userprofile.telegram_id, message)
+
+@receiver(project_viewed)
+def project_viewed_signal(sender, project, viewer, **kwargs):
+    # Не відправляти повідомлення, якщо автор переглядає свій власний проект
+    if viewer == project.author:
+        return
+    
+    if hasattr(project.author, "userprofile"):
+        tg_id = project.author.userprofile.telegram_id
+        if tg_id:
+            message = f"""
+👁️ Ваш проєкт переглянуто!
+
+📌 Назва: {project.title}
+👤 Переглянув: {viewer.username if viewer.is_authenticated else 'Анонім'}
+📅 Дата: {project.created_at.strftime('%Y-%m-%d %H:%M')}
+            """
+            bot.send_message(tg_id, message)

@@ -81,7 +81,9 @@ button:hover {
 
 /* Форми */
 form {
-    margin-top: 15px;
+    margin: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 form input, form textarea {
