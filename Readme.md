@@ -17,11 +17,11 @@ MiniPortfolio is a Django application for creating and viewing user portfolios, 
 ##  Структура
 ```
 mini_portfolio/
-├── mini_portfolio/        # головні налаштування Django
-├── portfolio/             # додаток із моделями, views, шаблонами
-├── telegram_bot/          # логіка Telegram‑бота
-├── requirements.txt       # залежності
-└── README.md              # документація
+├── mini_portfolio/        # main settings Django
+├── portfolio/             # app with models, views, templates
+├── telegram_bot/          # Telegram‑bot logic
+├── requirements.txt       
+└── README.md              
 ```
 
 ##  Installation
